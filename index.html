@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartShop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="m-0 bg-indigo-50 text-slate-800 font-[Verdana,sans-serif]">
+    <!-- NAVBAR -->
+    <nav
+      id="navbar"
+      class="sticky top-0 z-50 bg-white shadow-lg flex flex-wrap justify-between items-center px-5 py-3"
+    >
+      <h1 id="logo" class="text-2xl font-bold text-indigo-600">SmartShop</h1>
+
+      <button
+        id="menu-btn"
+        class="md:hidden bg-white text-black border border-slate-300 px-3.5 py-2 rounded-lg"
+      >
+        Menu
+      </button>
+
+      <div
+        id="menu"
+        class="max-md:hidden flex flex-col md:flex-row w-full md:w-auto gap-2 md:gap-6 mt-2 md:mt-0"
+      >
+        <a
+          href="#home"
+          class="font-bold text-slate-700 border-b-2 border-transparent data-[active=true]:text-indigo-600 data-[active=true]:border-indigo-600"
+          >Home</a
+        >
+        <a
+          href="#products"
+          class="font-bold text-slate-700 border-b-2 border-transparent data-[active=true]:text-indigo-600 data-[active=true]:border-indigo-600"
+          >Products</a
+        >
+        <a
+          href="#reviews"
+          class="font-bold text-slate-700 border-b-2 border-transparent data-[active=true]:text-indigo-600 data-[active=true]:border-indigo-600"
+          >Reviews</a
+        >
+        <a
+          href="#contact"
+          class="font-bold text-slate-700 border-b-2 border-transparent data-[active=true]:text-indigo-600 data-[active=true]:border-indigo-600"
+          >Contact</a
+        >
+      </div>
+
+      <div id="balance-box" class="flex items-center gap-2 font-bold">
+        <span>Balance: <span id="balance">500</span> BDT</span>
+        <button
+          id="add-money"
+          class="bg-emerald-600 text-white px-3.5 py-2 rounded-lg hover:opacity-85"
+        >
+          Add Money
+        </button>
+        <button
+          id="view-cart"
+          class="bg-orange-500 text-white px-3.5 py-2 rounded-lg hover:opacity-85"
+        >
+          View Cart (<span id="cart-count">0</span>)
+        </button>
+      </div>
+    </nav>
+
+    <!-- BANNER -->
+    <section id="home" class="max-w-[1100px] mx-auto my-8 px-4">
+      <div id="slider" class="relative overflow-hidden rounded-xl">
+        <img
+          class="w-full h-[180px] md:h-[300px] object-cover"
+          src="https://picsum.photos/seed/shop1/1200/400"
+          alt="Banner 1"
+        />
+        <img
+          class="w-full h-[180px] md:h-[300px] object-cover"
+          src="https://picsum.photos/seed/shop2/1200/400"
+          alt="Banner 2"
+        />
+        <img
+          class="w-full h-[180px] md:h-[300px] object-cover"
+          src="https://picsum.photos/seed/shop3/1200/400"
+          alt="Banner 3"
+        />
+        <img
+          class="w-full h-[180px] md:h-[300px] object-cover"
+          src="https://picsum.photos/seed/shop4/1200/400"
+          alt="Banner 4"
+        />
+
+        <button
+          id="prev-slide"
+          class="absolute top-1/2 left-2 bg-black/60 text-white px-3.5 py-2 rounded-lg hover:opacity-85"
+        >
+          &lt;
+        </button>
+        <button
+          id="next-slide"
+          class="absolute top-1/2 right-2 bg-black/60 text-white px-3.5 py-2 rounded-lg hover:opacity-85"
+        >
+          &gt;
+        </button>
+      </div>
+    </section>
+
+    <!-- PRODUCTS + CART -->
+    <section id="products" class="max-w-[1100px] mx-auto my-8 px-4">
+      <h2 class="text-3xl font-bold my-4">Products</h2>
+
+      <div id="filters" class="flex flex-col md:flex-row gap-3 mb-3">
+        <input
+          id="search"
+          class="flex-1 border border-slate-300 p-2 rounded-lg"
+          type="text"
+          placeholder="Search product..."
+        />
+        <select id="sort" class="border border-slate-300 p-2 rounded-lg">
+          <option value="none">Sort by</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+        </select>
+      </div>
+
+      <p id="warning" class="my-2 text-rose-600 font-bold"></p>
+
+      <div id="shop" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          id="product-list"
+          class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
+          <p>Loading products...</p>
+        </div>
+
+        <!-- Desktop e sticky: scroll korleo pashe thake -->
+        <div
+          id="cart"
+          class="bg-white rounded-xl shadow-lg p-4 self-start scroll-mt-20 transition-shadow md:sticky md:top-20 md:max-h-[calc(100vh-6rem)] md:overflow-y-auto"
+        >
+          <h3 class="text-lg font-bold mb-2">Your Cart</h3>
+          <div id="cart-items"></div>
+
+          <div id="coupon-box" class="flex gap-2 my-3">
+            <input
+              id="coupon"
+              class="flex-1 min-w-0 border border-slate-300 p-2 rounded-lg"
+              type="text"
+              placeholder="Coupon code"
+            />
+            <button
+              id="apply-coupon"
+              class="bg-indigo-600 text-white px-3.5 py-2 rounded-lg hover:opacity-85"
+            >
+              Apply
+            </button>
+          </div>
+          <p id="coupon-message" class="my-1"></p>
+
+          <p class="my-1">Subtotal: <span id="subtotal">0</span> BDT</p>
+          <p class="my-1">Delivery: <span id="delivery">0</span> BDT</p>
+          <p class="my-1">Shipping: <span id="shipping">0</span> BDT</p>
+          <p class="my-1">Discount: -<span id="discount">0</span> BDT</p>
+          <p id="total-line" class="my-1 text-lg font-bold">
+            Total: <span id="total">0</span> BDT
+          </p>
+
+          <button
+            id="clear-cart"
+            class="w-full mt-2 bg-rose-500 text-white px-3.5 py-2 rounded-lg hover:opacity-85"
+          >
+            Clear Cart
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews" class="max-w-[700px] mx-auto my-8 px-4">
+      <h2 class="text-3xl font-bold my-4">Customer Reviews</h2>
+      <div
+        id="review-box"
+        class="bg-white rounded-xl shadow-lg p-6 text-center"
+      ></div>
+      <div id="review-buttons" class="flex justify-center gap-3 mt-3">
+        <button
+          id="prev-review"
+          class="bg-slate-200 text-black px-3.5 py-2 rounded-lg hover:opacity-85"
+        >
+          Prev
+        </button>
+        <button
+          id="next-review"
+          class="bg-slate-200 text-black px-3.5 py-2 rounded-lg hover:opacity-85"
+        >
+          Next
+        </button>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="max-w-[600px] mx-auto my-8 px-4">
+      <h2 class="text-3xl font-bold my-4">Contact Us</h2>
+      <form
+        id="contact-form"
+        class="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-3"
+      >
+        <input
+          id="c-name"
+          class="border border-slate-300 p-2 rounded-lg"
+          type="text"
+          placeholder="Name"
+        />
+        <input
+          id="c-email"
+          class="border border-slate-300 p-2 rounded-lg"
+          type="text"
+          placeholder="Email"
+        />
+        <textarea
+          id="c-message"
+          class="border border-slate-300 p-2 rounded-lg"
+          placeholder="Message"
+        ></textarea>
+        <p id="form-message"></p>
+        <button
+          id="send-btn"
+          class="bg-indigo-600 text-white px-3.5 py-2 rounded-lg hover:opacity-85"
+          type="submit"
+        >
+          Send
+        </button>
+      </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer
+      id="footer"
+      class="bg-indigo-950 text-white mt-10 p-6 flex flex-wrap justify-between gap-3"
+    >
+      <div>
+        <p>Email: support@smartshop.com</p>
+        <p>Phone: +880 1234 567890</p>
+      </div>
+      <div id="footer-links">
+        <a class="underline mr-3" href="#home">Home</a>
+        <a class="underline mr-3" href="#products">Products</a>
+        <a class="underline mr-3" href="#reviews">Reviews</a>
+        <a class="underline mr-3" href="#contact">Contact</a>
+      </div>
+      <p>&copy; 2026 SmartShop. All rights reserved.</p>
+    </footer>
+
+    <button
+      id="back-to-top"
+      class="hidden fixed bottom-5 right-5 bg-indigo-600 text-white px-3.5 py-2 rounded-lg hover:opacity-85"
+    >
+      Top
+    </button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
